@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <title>Javascript Çözüm 3</title>
+    <style>
+        .merkez {
+            margin: auto;
+            margin-top: 100px;
+            width: 50%;
+            text-align: center;
+        }
+        #metin {
+            padding: 50px;
+        }
+        #bul {
+            margin: auto;
+            display: block;
+        }
+        #sonuc{
+            margin-top: 20px;
+        }
+        #kaydir{
+            background-color: lightgray;
+            opacity: 0.6;
+            border-radius: 15px;
+        }
+        #gor {
+            display: none;
+        }
+    </style>  
+</head>
+<body>
+    <div class="merkez">
+        <h3 align="center">Metindeki en uzun kelimeyi bul</h3>
+        <h5 align="center">Metni aşağı yerleştiriniz: </h5>
+        <input id="metin" type="text" class="form-control" />
+    </div>
+    <br />
+    <button id="bul" type="button" class="btn btn-dark" onclick="enUzunAra()">En uzun kelime bul</button>
+    <h2 align="center" id="sonuc"></h2>
+    <div class="merkez" id="kaydir">
+        <button id="gor" type="button" class="btn btn-succes" onclick="yazdir()">Kelimeleri Gör</button>
+        <div class="merkez" id="kaydir">
+            <h3 id="yaz" align="center"></h3>
+        </div>
+        <script>
+            $(document).ready(function () {
+                $("#bul").click(function () {
+                    $("#gor").fadeIn();
+                });
+            });
+            $(document).ready(function () {
+                $("#gor").click(function () {
+                    $("#kaydir").slideDown(1000)({
+                    });
+                });
+            });
+            var dizi = new Array();
+            function enUzunAra() {
+                var metin = document.getElementById("metin").value;
+                dizi = metin.split(" ");
+                var enUzun = dizi[0];
+                for (var i = 0; i < dizi.length; i++) {
+                    if (dizi[i].length >= enUzun.length) {
+                        enUzun = dizi[i];
+                    }
+                }
+                document.getElementById("sonuc").innerHTML += "Bu metindeki en uzun kelime: " + enUzun + "<br/>";
+            }
+            function yazdir() {
+                for (var i = 0; i < dizi.length; i++) {
+                    document.getElementById("yaz").innerHTML += i + 1 + ".ci kelime: " + dizi[i] + " uzunluk: " + dizi[i].length + "<br /> ";
+                }
+            }
+        </script>
+</body>
+</html>

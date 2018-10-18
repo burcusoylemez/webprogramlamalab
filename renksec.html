@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <script>
+        function renkDegistir() {
+            var isimsoyad = document.getElementById("ad").value;
+            document.getElementById("burayaYaz").innerHTML = isimsoyad;
+            var renk = document.getElementById("renkSec").value;
+            switch (renk) {
+                case "sarı":
+                    document.getElementById("burayaYaz").style.color = "yellow";
+                    break;
+                case "mavi":
+                    document.getElementById("burayaYaz").style.color = "blue";
+                    break;
+                case "yeşil":
+                    document.getElementById("burayaYaz").style.color = "green";
+                    break;
+                case "mor":
+                    document.getElementById("burayaYaz").style.color = "purple";
+                    break;
+                case "kırmızı":
+                    document.getElementById("burayaYaz").style.color = "red";
+                    break;
+                case "turuncu":
+                    document.getElementById("burayaYaz").style.color = "orange";
+            } 
+         document.getElementById("burayaYaz").innerHTML = isimsoyad;
+        }
+    </script>
+    <title>Javascript Çözüm 1</title>
+</head>
+<body>
+    <div class="container">
+        Adınız Soyadınız: <input type="text" name="ad" id="ad" />
+        Renk Belirtiniz: <input type="text" id="renkSec" />
+        <button type="button" onclick="renkDegistir()" class="btn btn-success"> Gönder </button>
+    </div>
+    <h4 id="burayaYaz"></h4>
+</body>
+</html>

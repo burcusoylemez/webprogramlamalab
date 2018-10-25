@@ -1,0 +1,75 @@
+<DOCTYPE html>
+<html>
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <style>
+  .bosluk{
+    word-spacing: 40px;
+  }
+  </style>
+</head>
+<body>
+    <script>
+    var app = angular.module("miniDb",[]);
+    app.controller("kontrol",function($scope){
+        $scope.kullanicilar=[
+        {ad: "burcu", soyad:"soylemez", email: "b@gmail.com"},
+        {ad: "kull1ad", soyad:"kull1soyad", email:"a@gmail.com" },
+        {ad: "kull2ad", soyad:"kull2soyad", email:"c@gmail.com"}
+        ];
+        $scope.form = false;
+        $scope.kisiEkle = function(){
+            $scope.hataMesaji = "";
+            $scope.form =  true;
+        }
+        $scope.kaydet = function(){ 
+        $scope.hataMesaji="";
+        var hata = false;    
+        for(var i=0; i < $scope.kullanicilar.length; i++){
+          if($scope.yeniAd == $scope.kullanicilar[i].ad && $scope.yeniSoyad == $scope.kullanicilar[i].soyad && $scope.yeniMail == $scope.kullanicilar[i].email){
+            hata = true;
+          }
+        }
+        if(hata == true){ 
+            $scope.hataMesaji = "Bu kişi zaten kayıtlı, kayıtlı kişi kaydedilemez!";
+        } 
+        else if(hata == false && $scope.yeniMail != undefined){
+          $scope.kullanicilar.push({ad: $scope.yeniAd, soyad: $scope.yeniSoyad, email: $scope.yeniMail});
+          $scope.form = false;
+        }}
+        $scope.kisiSil = function (x) {
+        $scope.hataMesaji = "";
+        $scope.kullanicilar.splice(x, 1);
+        }
+    });
+    </script>
+<div ng-app="miniDb" ng-cloak ng-controller="kontrol" class="w3-card-2 w3-margin" style="max-width:400px;">
+        <header class="w3-container w3-light-grey w3-padding-16">
+          <h3>Kullanıcılar</h3>
+        </header>       
+        <ul class="w3-ul">
+          <li class="bosluk">AD SOYAD</li>
+          <li ng-repeat="eleman in kullanicilar" class="w3-padding-16 bosluk"><span ng-click="kisiSil($index)" style="cursor:pointer;" class="w3-right w3-margin-right">
+            X</span> {{eleman.ad}} {{eleman.soyad}} </li>
+        </ul>    
+         <div class="w3-container w3-light-grey w3-padding-16">
+          <div class="w3-row w3-margin-top">
+            <div class="w3-col s2">
+              <button ng-click="kisiEkle()" class="w3-btn w3-padding w3-green">Yeni Kullanıcı</button>
+            </div>
+          </div>
+        <div ng-show="form">
+        <form name="kayitFormu" novalidate>
+          <input placeholder="Adınız:" ng-model="yeniAd" class="w3-input w3-border w3-padding">
+          <input placeholder="Soyadınız" ng-model="yeniSoyad" class="w3-input w3-border w3-padding">
+          <input type="email" name="mail" ng-model="yeniMail" placeholder="Mail adresiniz" class="w3-input w3-border w3-padding" ng-pattern="stringFormat">
+          <p class="w3-text-red"  ng-show="kayitFormu.mail.$error.email">Geçersiz e-mail</p>
+          <button ng-click="kaydet()" class="w3-btn w3-padding w3-green">Kaydet</button>
+        </form>
+        </div>
+          <p class="w3-text-red">{{hataMesaji}}</p>
+        </div>
+</div>
+</body>
+</html>

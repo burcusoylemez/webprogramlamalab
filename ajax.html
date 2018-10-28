@@ -1,0 +1,87 @@
+<DOCTYPE! html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+#cssTablo {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+                
+#cssTablo td, #csstablo th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+                
+#cssTablo tr:nth-child(even){background-color: #f2f2f2;}
+                
+#cssTablo tr:hover {background-color: #ddd;}
+                
+#cssTablo th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #4CAF50;
+    color: white;
+}
+.container{
+    width: 400px;
+}  
+</style>
+</head>
+<body>
+<h4 id="detay"></h4>
+<div class="container">
+  <table id="cssTablo"></table>
+</div>
+<script>
+var index;
+window.onload=function xmlGetir() { //Sayfa yüklenir yüklenmez tabloya xml verilerini getirmek için
+var xhttp = new XMLHttpRequest();
+xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) { 
+        ogrListele(this);
+     }
+};
+xhttp.open("GET", "ogrenci.xml", true);
+xhttp.send();
+}
+function ogrListele(xml) {
+    var xmlDoc = xml.responseXML;
+    var table="<tr onclick='ogrDetay'><th>Numara</th><th>Ad Soyad</th><th>Soyad</th></tr>";
+    var x = xmlDoc.getElementsByTagName("ogrenci"); 
+        for (var i = 0; i <x.length; i++) { //i indexindeki <ogrenci> den belirtilen tag değerlerini çek
+            table += "<tr onclick='detayGetir(this)'><td>" +
+            x[i].getElementsByTagName("numara")[0].childNodes[0].nodeValue + 
+            "</td><td>" +
+            x[i].getElementsByTagName("ad")[0].childNodes[0].nodeValue +
+            "</td><td>" +
+            x[i].getElementsByTagName("soyad")[0].childNodes[0].nodeValue +
+            "</td></tr>" ;
+        }
+    document.getElementById("cssTablo").innerHTML = table;
+}    
+
+function detayGetir(index){ //Tabloda tıklanan satırın indexini al
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            ogrDetay(this,(index.rowIndex-1)); //XML de 0 indexli öğrenci tabloda header bulunduğundan 1 indexlidir bunu senkronize etmek için tıklanan satırın bir eksiğini al
+        }
+    };
+    xhttp.open("GET", "ogrenci.xml", true);
+    xhttp.send();
+}
+
+function ogrDetay(xml, ogrenci){
+    var xmlDoc = xml.responseXML;
+    var x = xmlDoc.getElementsByTagName("ogrenci");
+    var detaylar = "<h3>Numara: " + x[ogrenci].getElementsByTagName("numara")[0].childNodes[0].nodeValue + "</h3> " 
+    + "<h3>Ad Soyad: " + x[ogrenci].getElementsByTagName("ad")[0].childNodes[0].nodeValue + " " + x[ogrenci].getElementsByTagName("soyad")[0].childNodes[0].nodeValue + "</h3>"
+    + "<h3>Bölüm: " + x[ogrenci].getElementsByTagName("bolum")[0].childNodes[0].nodeValue + "</h3>" ;
+    document.getElementById("detay").innerHTML = detaylar;
+}
+</script>
+</body>
+</html>

@@ -79,7 +79,8 @@ function ogrDetay(xml, ogrenci){
     var x = xmlDoc.getElementsByTagName("ogrenci");
     var detaylar = "<h3>Numara: " + x[ogrenci].getElementsByTagName("numara")[0].childNodes[0].nodeValue + "</h3> " 
     + "<h3>Ad Soyad: " + x[ogrenci].getElementsByTagName("ad")[0].childNodes[0].nodeValue + " " + x[ogrenci].getElementsByTagName("soyad")[0].childNodes[0].nodeValue + "</h3>"
-    + "<h3>Bölüm: " + x[ogrenci].getElementsByTagName("bolum")[0].childNodes[0].nodeValue + "</h3>" ;
+    + "<h3>Bölüm: " + x[ogrenci].getElementsByTagName("bolum")[0].childNodes[0].nodeValue + "</h3>" 
+    + "<h3>Sınıf: " + x[ogrenci].getElementsByTagName("sinif")[0].childNodes[0].nodeValue + "</h3>" ;
     document.getElementById("detay").innerHTML = detaylar;
 }
 </script>
